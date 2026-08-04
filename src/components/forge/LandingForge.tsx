@@ -26,6 +26,7 @@ const brands = [
   { name: 'Mirai School of Technology', file: 'mirai-school-of-technology.jpg', invert: false },
   { name: 'CGC Mohali', file: 'cgc-mohali.svg', invert: true },
   { name: 'Zenith School of AI', file: 'zenith-school-of-ai.jpg', invert: false },
+  { name: 'Open Trade', file: 'open-trade.png', invert: false },
 ];
 
 // Photos live in /public/creators. `note` = neutral profile line (placeholder) —

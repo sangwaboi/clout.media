@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { CAL, MAIL, useReveal, Arrow, PromoBar, Nav, Footer } from './shared';
 
 /* =============================================================================
@@ -13,27 +14,33 @@ const stats = [
   { n: '4×', l: 'average earnings lift' },
 ];
 
-// Logos live in /public/brands/. Supply each as a transparent SVG or PNG,
-// preferably WHITE / monochrome so they read on the black theme.
+// Logos in /public/brands/. `invert` darkens a white logo so it reads on the white plaque.
 const brands = [
-  { name: 'Physics Wallah', file: 'physics-wallah.svg' },
-  { name: 'Newton School of Technology', file: 'newton-school-of-technology.svg' },
-  { name: 'Masai School', file: 'masai-school.svg' },
-  { name: 'College Vidya', file: 'college-vidya.svg' },
-  { name: 'Rishihood University', file: 'rishihood-university.svg' },
-  { name: 'Polaris School of Technology', file: 'polaris-school-of-technology.svg' },
-  { name: 'Vedam School of Technology', file: 'vedam-school-of-technology.svg' },
-  { name: 'Mirai School of Technology', file: 'mirai-school-of-technology.svg' },
-  { name: 'CGC Mohali', file: 'cgc-mohali.svg' },
-  { name: 'Zenith School of AI', file: 'zenith-school-of-ai.svg' },
+  { name: 'Physics Wallah', file: 'physics-wallah.png', invert: false },
+  { name: 'Newton School of Technology', file: 'newton-school-of-technology.png', invert: true },
+  { name: 'Masai School', file: 'masai-school.jpg', invert: false },
+  { name: 'College Vidya', file: 'college-vidya.jpg', invert: false },
+  { name: 'Rishihood University', file: 'rishihood-university.png', invert: false },
+  { name: 'Polaris School of Technology', file: 'polaris-school-of-technology.png', invert: false },
+  { name: 'Vedam School of Technology', file: 'vedam-school-of-technology.png', invert: false },
+  { name: 'Mirai School of Technology', file: 'mirai-school-of-technology.jpg', invert: false },
+  { name: 'CGC Mohali', file: 'cgc-mohali.svg', invert: true },
+  { name: 'Zenith School of AI', file: 'zenith-school-of-ai.jpg', invert: false },
 ];
 
+// Photos live in /public/creators. `note` = neutral profile line (placeholder) —
+// replace with the real quote each creator gave about CloutSync.
 const creators = [
-  { name: 'kavya karnatac', handle: '@kk.create', followers: '5M+' },
-  { name: 'ezsnippet', handle: '@ezsnippet', followers: '3.3M+' },
-  { name: 'nitian saurabh', handle: '@nitiansaurabh', followers: '1.31M+' },
-  { name: 'shwetabh gangsta', handle: '@gangsta_shwetabh', followers: '1M+' },
-  { name: 'vansh ke vichaar', handle: '@vanshkevichaar', followers: '671K+' },
+  { name: 'kavya karnatac', handle: '@kk.create', followers: '4.5M+', img: '/creators/kavya-karnatac.jpg', note: 'part of the cloutsync roster — a multi-million audience turned into a durable business.' },
+  { name: 'shwetabh gangsta', handle: '@gangsta_shwetabh', followers: '1M+', img: '/creators/gangsta-shwetabh.jpg', note: 'partnered with cloutsync to build a real revenue system around a million-strong community.' },
+  { name: 'vansh ke vichaar', handle: '@vanshkevichaar', followers: '671K+', img: '/creators/vansh-ke-vichaar.jpg', note: 'managed with cloutsync — content, pricing and brand deals under one roof.' },
+  { name: 'career with avi', handle: '@careerwithavi', followers: '394K+', img: '/creators/career-with-avi.jpg', note: 'part of the cloutsync roster — reach engineered into recurring income.' },
+  { name: 'ritik patel', handle: '@edu.ritikpatel', followers: '385K+', img: '/creators/ritik-patel.jpg', note: 'partnered with cloutsync to script, publish and monetise with intent.' },
+  { name: 'saunex', handle: '@saunex_', followers: '354K+', img: '/creators/saunex.jpg', note: 'managed with cloutsync — where attention becomes a career, not a side hustle.' },
+  { name: 'jazbaati saxena', handle: '@jazbaati.saxena', followers: '316K+', img: '/creators/jazbaati-saxena.jpg', note: 'part of the cloutsync roster — a loyal audience with a real business behind it.' },
+  { name: 'aditya', handle: '@codebyaditya', followers: '147K+', img: '/creators/codebyaditya.jpg', note: 'partnered with cloutsync to turn a tech following into partnerships that convert.' },
+  { name: 'shruti sonawane', handle: '@shruti.sonawane._', followers: '147K+', img: '/creators/shruti-sonawane.jpg', note: 'managed with cloutsync — steady, compounding growth over viral spikes.' },
+  { name: 'samit knows', handle: '@samitknows', followers: '106K+', img: '/creators/samit-knows.jpg', note: 'part of the cloutsync roster — building the long game, one deal at a time.' },
 ];
 
 const steps = [
@@ -46,15 +53,6 @@ const steps = [
 /* Official Y Combinator mark: orange square with the white "Y" (exact YC letterform).
    The provided asset is a filled square with the Y as a cut-out; we colour the square
    YC-orange and reveal a white Y from a layer behind the cut-out. */
-function YCBadge() {
-  return (
-    <span className="fg-sans" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: '1.35rem', fontWeight: 600, letterSpacing: '0.01em', color: '#fff' }}>
-      serving
-      <img src="/yc-logo.png" alt="Y Combinator" style={{ height: 30, width: 'auto', objectFit: 'contain', display: 'inline-block' }} />
-    </span>
-  );
-}
-
 function Hero() {
   return (
     <section id="fg-top" className="fg-hero-pin fg-grain fg-vignette" aria-label="hero">
@@ -68,9 +66,6 @@ function Hero() {
       <div className="fg-drift" style={{ position: 'absolute', bottom: '10%', right: '8%', width: 380, height: 380, borderRadius: '50%', background: 'radial-gradient(circle, rgba(183,68,50,0.12), transparent 70%)', filter: 'blur(30px)', animationDelay: '3s' }} />
 
       <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 'clamp(96px, 11vh, 124px)' }}>
-          <YCBadge />
-        </div>
         <div className="fg-wrap" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '0 clamp(1.25rem,5vw,4rem)' }}>
           <h1 className="fg-wordmark" style={{ fontSize: 'clamp(4.5rem, 18vw, 18rem)', marginTop: '-5vh', transform: 'translateY(-3vh)' }}>
             cloutsync<span className="fg-accent">.</span>
@@ -143,34 +138,65 @@ function Stats() {
 }
 
 function Brands() {
-  const doubled = [...brands, ...brands];
-  return (
-    <section id="fg-brands" className="fg-section" style={{ background: 'var(--fg-bg)', position: 'relative', zIndex: 3, paddingTop: 'clamp(2.5rem,5vw,5rem)', paddingBottom: 'clamp(2.5rem,5vw,5rem)' }}>
-      <div className="fg-wrap" style={{ marginBottom: '2.5rem' }}>
-        <p className="fg-eyebrow">trusted by leading education brands</p>
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [mode, setMode] = useState<'pin' | 'native'>('pin');
+
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const narrow = window.matchMedia('(max-width: 767px)').matches;
+    if (reduce || narrow) { setMode('native'); return; }
+    const wrap = wrapRef.current, track = trackRef.current;
+    if (!wrap || !track) return;
+    let maxX = 0;
+    const setup = () => {
+      maxX = Math.max(0, track.scrollWidth - window.innerWidth);
+      wrap.style.height = `${window.innerHeight + maxX}px`;
+    };
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const top = wrap.getBoundingClientRect().top;
+        const p = maxX > 0 ? Math.min(Math.max(-top / maxX, 0), 1) : 0;
+        track.style.transform = `translate3d(${(-p * maxX).toFixed(1)}px,0,0)`;
+      });
+    };
+    setup(); onScroll();
+    const onResize = () => { setup(); onScroll(); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize); cancelAnimationFrame(raf); };
+  }, []);
+
+  const cards = brands.map((b, i) => (
+    <div key={b.name} className="fg-brand-card">
+      <span className="fg-brand-index fg-mono">{String(i + 1).padStart(2, '0')}</span>
+      <div className={`fg-brand-logo ${b.file ? 'fg-brand-logo--filled' : 'fg-brand-logo--empty'}`}>
+        {b.file && <img src={`/brands/${b.file}`} alt={b.name} className={b.invert ? 'fg-logo-invert' : undefined} loading="lazy" />}
       </div>
-      <div className="fg-marquee">
-        <div className="fg-marquee-track">
-          {doubled.map((b, i) => (
-            <div key={b.file + i} className="fg-logo" title={b.name} style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 clamp(1.5rem,3.5vw,3.5rem)', height: 'clamp(2.75rem,4vw,4rem)' }}>
-              <img
-                src={`/brands/${b.file}`}
-                alt={b.name}
-                style={{ maxHeight: '100%', maxWidth: 180, width: 'auto', objectFit: 'contain' }}
-                onError={(e) => {
-                  // Graceful fallback to a styled name until the logo file is added.
-                  const img = e.currentTarget;
-                  img.style.display = 'none';
-                  const span = img.nextElementSibling as HTMLElement | null;
-                  if (span) span.style.display = 'inline';
-                }}
-              />
-              <span className="fg-serif" style={{ display: 'none', fontSize: 'clamp(1.25rem,2.2vw,2rem)', color: 'var(--fg-muted)', whiteSpace: 'nowrap' }}>
-                {b.name.toLowerCase()}
-              </span>
-            </div>
-          ))}
+      <span className="fg-brand-name">{b.name.toLowerCase()}</span>
+    </div>
+  ));
+
+  if (mode === 'native') {
+    return (
+      <section id="fg-brands" className="fg-section" style={{ background: 'var(--fg-bg)', position: 'relative', zIndex: 3, paddingTop: 'clamp(2.5rem,5vw,5rem)', paddingBottom: 'clamp(2.5rem,5vw,5rem)' }}>
+        <div className="fg-wrap" style={{ marginBottom: '1.5rem' }}>
+          <p className="fg-eyebrow">trusted by leading education brands</p>
         </div>
+        <div className="fg-brand-native">{cards}</div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="fg-brands" ref={wrapRef} style={{ position: 'relative', background: 'var(--fg-bg)', zIndex: 3 }}>
+      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div className="fg-wrap" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
+          <p className="fg-eyebrow">trusted by leading education brands</p>
+        </div>
+        <div ref={trackRef} className="fg-hbrands-track">{cards}</div>
       </div>
     </section>
   );
@@ -178,34 +204,64 @@ function Brands() {
 
 function Creators() {
   const ref = useReveal();
+  const [active, setActive] = useState(0);
+  const c = creators[active];
+  const igUrl = (h: string) => `https://www.instagram.com/${h.replace('@', '')}`;
+  const go = (d: number) => setActive((a) => (a + d + creators.length) % creators.length);
+
   return (
-    <section id="fg-creators" ref={ref} className="fg-section" style={{ background: 'var(--fg-surface-2)', position: 'relative', zIndex: 3 }}>
+    <section id="fg-creators" ref={ref} className="fg-section fg-iv" style={{ position: 'relative', zIndex: 3 }}>
       <div className="fg-wrap">
-        <div style={{ maxWidth: 760, marginBottom: 'clamp(2.5rem,5vw,4rem)' }}>
-          <p className="fg-eyebrow fg-reveal">the roster</p>
-          <h2 className="fg-head fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1rem' }}>creators worth the clout.</h2>
-          <p className="fg-body fg-reveal" data-d="2" style={{ marginTop: '1.5rem' }}>
-            we work hand-in-hand with the sharpest voices in education and tech — turning their
-            reach into results.
-          </p>
+        <div className="fg-iv-top fg-reveal">
+          <h2 className="fg-iv-head" style={{ maxWidth: '13ch' }}>creators worth the clout<span style={{ color: 'rgba(0,0,0,0.18)' }}>.</span></h2>
+          <p className="fg-iv-sub">Creators describe what they built — and what changed when they started working with us.</p>
         </div>
-        <div style={{ borderTop: '1px solid var(--fg-hairline)' }}>
-          {creators.map((c, i) => (
-            <a
-              key={c.handle}
-              href={`https://www.instagram.com/${c.handle.replace('@', '')}`}
-              target="_blank" rel="noreferrer"
-              className="fg-reveal"
-              data-d={((i % 4) + 1) as unknown as string}
-              style={{ display: 'grid', gridTemplateColumns: '2.5rem 1fr auto', gap: '1rem', alignItems: 'center', padding: 'clamp(1rem,2vw,1.5rem) 0', borderBottom: '1px solid var(--fg-hairline)', textDecoration: 'none', color: 'inherit' }}
+
+        <div className="fg-iv-stats fg-reveal" data-d="1">
+          <div className="fg-iv-stat"><div className="fg-iv-stat__l">creators managed</div><div className="fg-iv-stat__v">20+</div></div>
+          <div className="fg-iv-stat"><div className="fg-iv-stat__l">combined following</div><div className="fg-iv-stat__v">10M+</div></div>
+          <div className="fg-iv-stat"><div className="fg-iv-stat__l">avg earnings lift</div><div className="fg-iv-stat__v">4×</div></div>
+        </div>
+
+        {/* Featured interview */}
+        <div className="fg-iv-feature fg-reveal" data-d="2">
+          <div className="fg-iv-panel">
+            <span className="fg-iv-kicker">in their words</span>
+            <blockquote className="fg-iv-quote">{c.note}</blockquote>
+            <div className="fg-iv-foot">
+              <div className="fg-iv-bignum">{c.followers}<span className="fg-iv-bignum__u">followers</span></div>
+              <div className="fg-iv-nav">
+                <button className="fg-iv-navbtn" onClick={() => go(-1)} aria-label="Previous creator">←</button>
+                <button className="fg-iv-navbtn" onClick={() => go(1)} aria-label="Next creator">→</button>
+              </div>
+            </div>
+          </div>
+          <div className="fg-iv-media">
+            <img className="fg-iv-media__img" src={c.img} alt={c.name} />
+            <div className="fg-iv-media__grad" />
+            <div className="fg-iv-media__cap">
+              <a className="fg-iv-name" href={igUrl(c.handle)} target="_blank" rel="noreferrer">{c.name} <span style={{ fontSize: '0.6em', opacity: 0.6 }}>↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        {/* Thumbnail strip */}
+        <div className="fg-iv-strip">
+          {creators.map((t, i) => (
+            <button
+              key={t.handle}
+              className="fg-iv-thumb"
+              aria-current={i === active}
+              onClick={() => setActive(i)}
+              aria-label={`Show ${t.name}`}
             >
-              <span className="fg-eyebrow" style={{ color: 'var(--fg-faint)' }}>{String(i + 1).padStart(2, '0')}</span>
-              <span>
-                <span className="fg-serif" style={{ fontSize: 'clamp(1.35rem,2.4vw,2rem)', color: 'var(--fg-text)' }}>{c.name}</span>
-                <span className="fg-sans" style={{ display: 'block', color: 'var(--fg-faint)', fontSize: '.85rem' }}>{c.handle}</span>
-              </span>
-              <span className="fg-sans fg-accent" style={{ fontWeight: 600, fontSize: 'clamp(1rem,1.6vw,1.3rem)' }}>{c.followers}</span>
-            </a>
+              <img src={t.img} alt={t.name} loading="lazy" />
+              <div className="fg-iv-thumb__grad" />
+              <div className="fg-iv-thumb__cap">
+                <div className="fg-iv-thumb__name">{t.name}</div>
+                <div className="fg-iv-thumb__foll">{t.followers}</div>
+              </div>
+            </button>
           ))}
         </div>
       </div>

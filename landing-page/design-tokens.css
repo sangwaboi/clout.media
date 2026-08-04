@@ -1,0 +1,151 @@
+/* ============================================================
+   Design tokens — decoded from whatswithin.space
+   Warm, playful, retro-modern wellness aesthetic.
+   Drop into a stylesheet and reference via var(--token).
+   ============================================================ */
+
+:root {
+  /* ---------- Core brand colors ---------- */
+  --ww-paper:        #faefe6; /* cream — primary neutral / on-color text / button fill */
+  --ww-paper-warm:   #fff8e6; /* warmer off-white for small text */
+  --ww-paper-tint:   #f9f3ec; /* barely-tinted near-white */
+
+  --ww-red:          #e63b40; /* primary red / hero background */
+  --ww-blue:         #566dc4; /* periwinkle / secondary brand */
+  --ww-pink:         #ffcfec; /* soft pink section bg + florals */
+  --ww-rose:         #ffc8dd; /* lighter rose-pink section bg */
+  --ww-lime:         #d9df8e; /* soft chartreuse section bg */
+  --ww-olive:        #ccd470; /* deeper lime companion */
+
+  --ww-ink:          #304254; /* default body text (dark slate) */
+  --ww-ink-navy:     #011c50; /* high-contrast dark accent text */
+  --ww-stroke:       #000000; /* shape outlines / structural black */
+
+  /* ---------- Extended illustration palette (accents in art only) ---------- */
+  --ww-teal:         #5da6bf;
+  --ww-orange:       #fd883d;
+  --ww-coral:        #ea5c5c;
+  --ww-burnt:        #e34a20;
+  --ww-sky:          #87c0f4;
+  --ww-plum:         #553566;
+  --ww-orchid:       #d46bca;
+  --ww-magenta:      #ed1558;
+
+  /* ---------- Semantic mapping ---------- */
+  --color-bg:            var(--ww-paper);
+  --color-text:          var(--ww-ink);
+  --color-text-strong:   var(--ww-ink-navy);
+  --color-primary:       var(--ww-red);
+  --color-secondary:     var(--ww-blue);
+  --color-accent-soft:   var(--ww-pink);
+  --color-accent-fresh:  var(--ww-lime);
+
+  /* ---------- Typography ---------- */
+  --font-display: "Cubao Narrow", "Anton", "Oswald", sans-serif; /* condensed rounded display */
+  --font-body:    "Josefin Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-label:   "Roca One", "Josefin Sans", sans-serif;         /* rounded accent labels */
+  --font-utility: "Helvetica World", Helvetica, Arial, sans-serif;/* micro utility text */
+
+  /* Type scale (px values decoded from source) */
+  --fs-hero:      200px;   /* hero display   (line-height 0.75) */
+  --fs-h1:        59px;    /* section head   (line-height 0.83) */
+  --fs-lead:      42.67px; /* lead paragraph (bold, lh 1.22, tracking -0.045em, justify) */
+  --fs-quote:     32px;    /* sub-headline   (lh 1.24) */
+  --fs-body-lg:   26.67px; /* secondary body (lh 1.4) */
+  --fs-body:      24px;    /* body / label   (lh 1.4, tracking +0.025em) */
+  --fs-button:    21.33px; /* button + nav   (bold, underline) */
+  --fs-micro:     18.67px; /* micro utility  (bold) */
+  --fs-base:      16px;    /* base default */
+
+  /* Line-heights (per-mille source → unitless) */
+  --lh-display:   0.75;
+  --lh-heading:   0.83;
+  --lh-lead:      1.22;
+  --lh-quote:     1.24;
+  --lh-normal:    1.4;
+
+  /* Letter-spacing */
+  --tracking-tight: -0.045em; /* big headings */
+  --tracking-open:  0.025em;  /* small body */
+
+  --fw-normal: 400;
+  --fw-bold:   700;
+
+  /* ---------- Shape / radius ---------- */
+  --radius-pill: 999px;  /* buttons are fully-rounded pills */
+  --radius-lg:   36px;
+  --radius-blob: 42% 58% 63% 37% / 41% 44% 56% 59%; /* organic blob mask starting point */
+
+  /* ---------- Layout ---------- */
+  --canvas-w:      1366px;  /* reference design width */
+  --section-pad:   clamp(2rem, 6vw, 6rem);
+  --content-max:   1200px;
+}
+
+/* ---------- Base ---------- */
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+
+/* ---------- Type roles ---------- */
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ww-paper);
+}
+.h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-heading);
+}
+.lead {
+  font-family: var(--font-body);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  letter-spacing: var(--tracking-tight);
+  text-align: justify;
+}
+.body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tracking-open);
+}
+
+/* ---------- Color-blocked section ---------- */
+.section {
+  padding: var(--section-pad);
+  background: var(--color-bg);
+}
+.section--red   { background: var(--ww-red);   color: var(--ww-paper); }
+.section--blue  { background: var(--ww-blue);  color: var(--ww-paper); }
+.section--pink  { background: var(--ww-pink);  color: var(--ww-blue); }
+.section--rose  { background: var(--ww-rose);  color: var(--ww-blue); }
+.section--lime  { background: var(--ww-lime);  color: var(--ww-blue); }
+.section--paper { background: var(--ww-paper); color: var(--ww-ink); }
+
+/* ---------- Pill button ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7em 1.6em;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--ww-paper);
+  color: var(--ww-red);
+  font-family: var(--font-body);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.btn--on-cream { background: var(--ww-blue); color: var(--ww-paper); }
+.btn--red      { background: var(--ww-red);  color: var(--ww-paper); }

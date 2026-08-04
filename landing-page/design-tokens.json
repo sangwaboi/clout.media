@@ -1,0 +1,102 @@
+{
+  "$meta": {
+    "source": "https://whatswithin.space",
+    "brand": "What's Within (Komal)",
+    "aesthetic": "warm, playful, retro-modern wellness",
+    "canvas": { "width": 1366, "height": 768, "unit": "px" },
+    "note": "Values decoded from the site's embedded Canva bootstrap data. Leading stored per-mille (750=0.75); tracking per-mille of em (-45=-0.045em)."
+  },
+  "color": {
+    "core": {
+      "paper":     { "value": "#faefe6", "role": "primary neutral / cream / on-color text / button fill", "usageCount": 101 },
+      "red":       { "value": "#e63b40", "role": "primary red / hero background", "usageCount": 81 },
+      "blue":      { "value": "#566dc4", "role": "periwinkle / secondary brand", "usageCount": 89 },
+      "pink":      { "value": "#ffcfec", "role": "soft pink section bg + florals", "usageCount": 15 },
+      "rose":      { "value": "#ffc8dd", "role": "lighter rose-pink section bg", "usageCount": 31 },
+      "lime":      { "value": "#d9df8e", "role": "soft chartreuse section bg", "usageCount": 5 },
+      "olive":     { "value": "#ccd470", "role": "deeper lime companion", "usageCount": 7 },
+      "ink":       { "value": "#304254", "role": "default body text", "usageCount": 3 },
+      "inkNavy":   { "value": "#011c50", "role": "high-contrast dark accent text", "usageCount": 5 },
+      "stroke":    { "value": "#000000", "role": "shape outlines / structural black", "usageCount": 42 },
+      "paperWarm": { "value": "#fff8e6", "role": "warmer off-white for small text", "usageCount": 11 },
+      "paperTint": { "value": "#f9f3ec", "role": "barely-tinted near-white", "usageCount": 2 }
+    },
+    "illustration": {
+      "teal": "#5da6bf", "orange": "#fd883d", "coral": "#ea5c5c", "burnt": "#e34a20",
+      "sky": "#87c0f4", "plum": "#553566", "orchid": "#d46bca", "magenta": "#ed1558",
+      "gold": "#fcc854", "amber": "#ffa441", "moss": "#5b6946", "rust": "#c43d1e",
+      "indigo": "#2e40c0", "periBlue": "#8b9bea"
+    },
+    "semantic": {
+      "background": "#faefe6",
+      "text": "#304254",
+      "textStrong": "#011c50",
+      "primary": "#e63b40",
+      "secondary": "#566dc4",
+      "accentSoft": "#ffcfec",
+      "accentFresh": "#d9df8e"
+    },
+    "sectionCycle": ["#e63b40", "#ffcfec", "#d9df8e", "#566dc4", "#faefe6", "#ffc8dd"]
+  },
+  "typography": {
+    "families": {
+      "display": { "name": "Cubao Narrow", "role": "hero + section headings", "traits": "condensed, heavy, rounded, retro-poster" },
+      "body":    { "name": "Josefin Sans", "role": "body, sub-heads, nav, buttons", "traits": "geometric humanist sans, airy", "defaultWeight": 400 },
+      "label":   { "name": "Roca One", "role": "accent labels / eyebrows", "traits": "rounded geometric" },
+      "utility": { "name": "Helvetica World", "role": "micro / utility text", "traits": "neutral grotesque" }
+    },
+    "scale": {
+      "hero":    { "px": 200,   "family": "display", "lineHeight": 0.75, "letterSpacingEm": -0.045 },
+      "h1":      { "px": 59,    "family": "display", "lineHeight": 0.83 },
+      "lead":    { "px": 42.67, "family": "body", "weight": 700, "lineHeight": 1.22, "letterSpacingEm": -0.045, "align": "justify" },
+      "quote":   { "px": 32,    "family": "display", "lineHeight": 1.24, "align": "center" },
+      "bodyLg":  { "px": 26.67, "family": "body", "lineHeight": 1.4 },
+      "body":    { "px": 24,    "family": "body", "lineHeight": 1.4, "letterSpacingEm": 0.025 },
+      "button":  { "px": 21.33, "family": "body", "weight": 700, "lineHeight": 1.4, "decoration": "underline", "align": "center" },
+      "micro":   { "px": 18.67, "family": "utility", "weight": 700, "lineHeight": 1.4 },
+      "base":    { "px": 16,    "family": "body", "weight": 400 }
+    },
+    "weights": { "normal": 400, "bold": 700 }
+  },
+  "shape": {
+    "radius": { "pill": 9999, "lg": 36, "unit": "px" },
+    "blobMaskCSS": "42% 58% 63% 37% / 41% 44% 56% 59%",
+    "motifs": ["quatrefoil floral (pink + red asterisk)", "heart-in-circle badge", "organic blob", "asterisk sparkle"],
+    "outline": { "color": "#000000", "usage": "optional thin stroke on decorative shapes" }
+  },
+  "components": {
+    "button": {
+      "shape": "full pill",
+      "radiusPx": 9999,
+      "variants": {
+        "onColor": { "fill": "#faefe6", "label": "#e63b40 (or #566dc4)" },
+        "onCream": { "fill": "#566dc4", "label": "#faefe6" }
+      },
+      "label": { "family": "Josefin Sans", "weight": 700, "size": 21.33, "decoration": "underline", "align": "center" },
+      "flat": true,
+      "shadow": false,
+      "observedLabels": ["Read more", "Work with me", "Get in touch", "Read all", "Explore Practices", "Read About My Journey", "Understand this journey better…"]
+    },
+    "nav": {
+      "style": "minimal, quiet",
+      "hero": ["heart badge", "Menu (underlined)"],
+      "overlayItems": ["about me", "Work with me", "Mission", "Our journey together", "Faqs"]
+    },
+    "section": {
+      "model": "full-bleed flat color block, stacked vertically",
+      "alignment": ["two-column (hero/about)", "centered single-column (banners/mission)"],
+      "density": "low / airy"
+    },
+    "image": { "mask": "organic blob shapes rather than rectangles" }
+  },
+  "layout": {
+    "referenceWidthPx": 1366,
+    "contentMaxPx": 1200,
+    "sectionPadding": "clamp(2rem, 6vw, 6rem)"
+  },
+  "voice": {
+    "tone": ["warm", "inclusive", "low-pressure", "reflective", "conversational"],
+    "person": "second person + collaborative we/us",
+    "signals": ["trailing ellipses", "short gentle sentences", "warm sign-offs", "explicit inclusivity + care disclaimer"]
+  }
+}

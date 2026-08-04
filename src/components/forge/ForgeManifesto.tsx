@@ -99,7 +99,7 @@ function Faq() {
         <div style={{ borderTop: '1px solid var(--fg-hairline)' }}>
           {faqs.map((f, i) => (
             <div key={f.q} className="fg-reveal" data-d={((i % 3) + 1) as unknown as string} style={{ padding: 'clamp(1.25rem,2vw,1.75rem) 0', borderBottom: '1px solid var(--fg-hairline)' }}>
-              <h3 className="fg-serif" style={{ fontSize: 'clamp(1.3rem,2.2vw,1.85rem)', color: '#fff', fontStyle: 'italic' }}>{f.q}</h3>
+              <h3 className="fg-serif" style={{ fontSize: 'clamp(1.3rem,2.2vw,1.85rem)', color: '#fff' }}>{f.q}</h3>
               <p className="fg-lora" style={{ color: '#cfd3d8', marginTop: '.6rem', lineHeight: 1.7, fontSize: '1.05rem' }}>{f.a}</p>
             </div>
           ))}

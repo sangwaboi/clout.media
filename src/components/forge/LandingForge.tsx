@@ -43,6 +43,18 @@ const steps = [
   { n: '04', title: 'scale to 4×', body: 'what works is scaled. we raise pricing, secure long-term deals and replicate proven formats to multiply creator earnings.' },
 ];
 
+/* Official Y Combinator mark: orange square with the white "Y" (exact YC letterform).
+   The provided asset is a filled square with the Y as a cut-out; we colour the square
+   YC-orange and reveal a white Y from a layer behind the cut-out. */
+function YCBadge() {
+  return (
+    <span className="fg-sans" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, fontSize: '1.35rem', fontWeight: 600, letterSpacing: '0.01em', color: '#fff' }}>
+      serving
+      <img src="/yc-logo.png" alt="Y Combinator" style={{ height: 30, width: 'auto', objectFit: 'contain', display: 'inline-block' }} />
+    </span>
+  );
+}
+
 function Hero() {
   return (
     <section id="fg-top" className="fg-hero-pin fg-grain fg-vignette" aria-label="hero">
@@ -56,12 +68,14 @@ function Hero() {
       <div className="fg-drift" style={{ position: 'absolute', bottom: '10%', right: '8%', width: 380, height: 380, borderRadius: '50%', background: 'radial-gradient(circle, rgba(183,68,50,0.12), transparent 70%)', filter: 'blur(30px)', animationDelay: '3s' }} />
 
       <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 'clamp(96px, 11vh, 124px)' }}>
+          <YCBadge />
+        </div>
         <div className="fg-wrap" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '0 clamp(1.25rem,5vw,4rem)' }}>
-          <p className="fg-eyebrow" style={{ marginBottom: '1.5rem' }}>creator growth studio · india · worldwide</p>
-          <h1 className="fg-wordmark" style={{ fontSize: 'clamp(4.5rem, 18vw, 18rem)' }}>
+          <h1 className="fg-wordmark" style={{ fontSize: 'clamp(4.5rem, 18vw, 18rem)', marginTop: '-5vh', transform: 'translateY(-3vh)' }}>
             cloutsync<span className="fg-accent">.</span>
           </h1>
-          <p className="fg-serif" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.6rem)', color: 'var(--fg-text)', marginTop: '1.5rem', fontStyle: 'italic', maxWidth: '22ch' }}>
+          <p className="fg-serif" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.6rem)', color: 'var(--fg-text)', marginTop: 'clamp(2rem, 5vh, 4rem)', maxWidth: '22ch', lineHeight: 1.02, letterSpacing: '-0.04em' }}>
             post at sunrise. close by midnight. compound your clout.
           </p>
         </div>
@@ -82,7 +96,7 @@ function Intro() {
     <section ref={ref} className="fg-section" style={{ background: 'var(--fg-bg)', position: 'relative', zIndex: 3 }}>
       <div className="fg-wrap" style={{ maxWidth: 980 }}>
         <p className="fg-eyebrow fg-reveal">what we do</p>
-        <h2 className="fg-display fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1.25rem' }}>
+        <h2 className="fg-head fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1.25rem' }}>
           attention is the new currency. <span className="fg-accent">we help you mint it.</span>
         </h2>
         <p className="fg-body fg-reveal" data-d="2" style={{ marginTop: '2rem', maxWidth: '62ch' }}>
@@ -101,14 +115,22 @@ function Intro() {
 
 function Stats() {
   const ref = useReveal();
+  const img = '/forge-hero.jpg';
   return (
     <section ref={ref} className="fg-section" style={{ background: 'var(--fg-surface-2)', position: 'relative', zIndex: 3 }}>
       <div className="fg-wrap">
-        <div style={{ display: 'grid', gap: '1px', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', background: 'var(--fg-hairline)', border: '1px solid var(--fg-hairline)', borderRadius: 20, overflow: 'hidden' }}>
-          {stats.map((s, i) => (
-            <div key={s.l} className="fg-reveal" data-d={((i % 4) + 1) as unknown as string} style={{ background: 'var(--fg-surface)', padding: 'clamp(1.75rem,3vw,3rem)' }}>
-              <div className="fg-serif" style={{ fontSize: 'clamp(3rem,6vw,5rem)', lineHeight: 1, color: 'var(--fg-text)' }}>{s.n}</div>
-              <div className="fg-eyebrow" style={{ marginTop: '.75rem' }}>{s.l}</div>
+        <div className="fg-results-top">
+          <h2 className="fg-results-head fg-reveal">results so far<span style={{ color: 'rgba(255,255,255,0.25)' }}>.</span></h2>
+          <p className="fg-body fg-reveal" data-d="1" style={{ maxWidth: '34ch' }}>
+            creator revenue facilitated, brands transformed, awards won, and the average earnings lift.
+          </p>
+        </div>
+        <div className="fg-stats-grid fg-reveal" data-d="2" style={{ marginTop: 'clamp(2rem, 4vw, 3rem)' }}>
+          {stats.map((s) => (
+            <div key={s.l} className="fg-stat">
+              <div className="fg-stat__img" style={{ backgroundImage: `url(${img})` }} />
+              <span className="fg-stat__label">{s.l}</span>
+              <span className="fg-stat__num">{s.n}</span>
             </div>
           ))}
         </div>
@@ -143,7 +165,7 @@ function Brands() {
                   if (span) span.style.display = 'inline';
                 }}
               />
-              <span className="fg-serif" style={{ display: 'none', fontStyle: 'italic', fontSize: 'clamp(1.25rem,2.2vw,2rem)', color: 'var(--fg-muted)', whiteSpace: 'nowrap' }}>
+              <span className="fg-serif" style={{ display: 'none', fontSize: 'clamp(1.25rem,2.2vw,2rem)', color: 'var(--fg-muted)', whiteSpace: 'nowrap' }}>
                 {b.name.toLowerCase()}
               </span>
             </div>
@@ -161,7 +183,7 @@ function Creators() {
       <div className="fg-wrap">
         <div style={{ maxWidth: 760, marginBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <p className="fg-eyebrow fg-reveal">the roster</p>
-          <h2 className="fg-display fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1rem' }}>creators worth the clout.</h2>
+          <h2 className="fg-head fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1rem' }}>creators worth the clout.</h2>
           <p className="fg-body fg-reveal" data-d="2" style={{ marginTop: '1.5rem' }}>
             we work hand-in-hand with the sharpest voices in education and tech — turning their
             reach into results.
@@ -198,7 +220,7 @@ function Process() {
       <div className="fg-wrap">
         <div style={{ maxWidth: 760, marginBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <p className="fg-eyebrow fg-reveal">the method</p>
-          <h2 className="fg-display fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1rem' }}>a revenue-first system.</h2>
+          <h2 className="fg-head fg-h2 fg-reveal" data-d="1" style={{ marginTop: '1rem' }}>a revenue-first system.</h2>
           <p className="fg-body fg-reveal" data-d="2" style={{ marginTop: '1.5rem' }}>designed to scale creator earnings — one deliberate step at a time.</p>
         </div>
         <div style={{ display: 'grid', gap: 'clamp(1rem,1.6vw,1.5rem)', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))' }}>
@@ -221,7 +243,7 @@ function CTA() {
     <section id="fg-contact" ref={ref} className="fg-section fg-grain" style={{ background: 'linear-gradient(180deg, #05130b, #000)', position: 'relative', zIndex: 3, textAlign: 'center' }}>
       <div className="fg-wrap" style={{ maxWidth: 900 }}>
         <p className="fg-eyebrow fg-reveal">start a conversation</p>
-        <h2 className="fg-display fg-reveal" data-d="1" style={{ fontSize: 'clamp(2.5rem,7vw,6rem)', marginTop: '1rem' }}>
+        <h2 className="fg-head fg-reveal" data-d="1" style={{ fontSize: 'clamp(2.5rem,7vw,6rem)', marginTop: '1rem' }}>
           let’s build something <span className="fg-accent">bold.</span>
         </h2>
         <p className="fg-body fg-reveal" data-d="2" style={{ margin: '1.75rem auto 0', maxWidth: '52ch' }}>

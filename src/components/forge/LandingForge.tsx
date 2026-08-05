@@ -96,8 +96,8 @@ function Intro() {
           attention is the new currency. <span className="fg-accent">we help you mint it.</span>
         </h2>
         <p className="fg-body fg-reveal" data-d="2" style={{ marginTop: '2rem', maxWidth: '62ch' }}>
-          cloutsync is a revenue-first studio for creators and the education brands that back
-          them. we pair strategic thinking with creative craft — turning reach into recurring
+          cloutsync media is a revenue-first studio for creators and the education brands that back
+          them. based in noida, india, we pair strategic thinking with creative craft — turning reach into recurring
           income, and audiences into movements. attention only matters when it turns into action.
         </p>
         <div className="fg-reveal" data-d="3" style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>

@@ -41,7 +41,7 @@ export const Arrow = () => (
 export function PromoBar() {
   return (
     <div className="fg-eyebrow" style={{ background: 'var(--fg-tint-green)', textAlign: 'center', padding: '10px 16px', color: 'var(--fg-mint)', borderBottom: '1px solid var(--fg-hairline)' }}>
-      now onboarding cohort ’26 · <a href={CAL} target="_blank" rel="noreferrer" className="fg-link" style={{ color: 'var(--fg-mint)' }}>apply as a creator →</a>
+      now signing — the class of 2026 · <a href={CAL} target="_blank" rel="noreferrer" className="fg-link" style={{ color: 'var(--fg-mint)' }}>apply as a creator →</a>
     </div>
   );
 }

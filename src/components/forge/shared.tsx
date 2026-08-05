@@ -74,6 +74,9 @@ export function Footer() {
             <p className="fg-body" style={{ marginTop: '1rem', fontSize: '1rem' }}>
               creator-led campaigns for education brands that want attention to turn into action.
             </p>
+            <address className="fg-body" style={{ marginTop: '1rem', fontSize: '.95rem', fontStyle: 'normal', color: 'var(--fg-faint)' }}>
+              CloutSync Media · Noida, Uttar Pradesh, India
+            </address>
           </div>
           <div style={{ display: 'flex', gap: 'clamp(2rem,5vw,5rem)', flexWrap: 'wrap' }}>
             <div>
@@ -91,7 +94,7 @@ export function Footer() {
         </div>
         <div className="fg-hairline" style={{ marginTop: '3rem', paddingTop: '1.5rem', display: 'flex', flexWrap: 'wrap', gap: '.75rem', justifyContent: 'space-between' }}>
           <span className="fg-eyebrow">© 2026 cloutsync media</span>
-          <span className="fg-eyebrow">india · working worldwide</span>
+          <span className="fg-eyebrow">Noida, India · working worldwide</span>
         </div>
       </div>
     </footer>

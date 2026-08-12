@@ -243,12 +243,27 @@ function Creators() {
   const igUrl = (h: string) => `https://www.instagram.com/${h.replace('@', '')}`;
   const go = (d: number) => setActive((a) => (a + d + creators.length) % creators.length);
 
-  // Auto-advance to the next creator every 2s. Depending on `active` means any
-  // manual selection (arrows or thumbnails) resets the 2s timer.
+  // Only start rotating once the section scrolls into view (not on page load/refresh).
+  const [started, setStarted] = useState(false);
   useEffect(() => {
-    const id = setInterval(() => setActive((a) => (a + 1) % creators.length), 2000);
+    const el = ref.current;
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) { setStarted(true); return; }
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { setStarted(true); io.disconnect(); } }),
+      { threshold: 0.35 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref]);
+
+  // Once started, advance to the next creator every 3s. Depending on `active`
+  // means any manual selection (arrows or thumbnails) resets the 3s timer.
+  useEffect(() => {
+    if (!started) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % creators.length), 3000);
     return () => clearInterval(id);
-  }, [active]);
+  }, [active, started]);
 
   return (
     <section id="fg-creators" ref={ref} className="fg-section fg-iv" style={{ position: 'relative', zIndex: 3 }}>

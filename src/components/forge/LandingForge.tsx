@@ -78,9 +78,7 @@ function YCBadge() {
   return (
     <span className="fg-sans" style={{ display: 'inline-flex', alignItems: 'center', gap: 16, fontSize: 'clamp(1.6rem, 2.8vw, 2.3rem)', fontWeight: 600, letterSpacing: '0.01em', color: '#fff' }}>
       serving
-      <span aria-label="Y Combinator" role="img" style={{ position: 'relative', display: 'inline-block', width: 46, height: 46, background: '#fff', borderRadius: 6 }}>
-        <span aria-hidden="true" style={{ position: 'absolute', inset: 0, background: '#ff6a00', WebkitMaskImage: 'url(/yc-logo.png)', maskImage: 'url(/yc-logo.png)', WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', WebkitMaskPosition: 'center', maskPosition: 'center' }} />
-      </span>
+      <img src="/yc-logo.png" alt="Y Combinator" style={{ height: 46, width: 'auto', objectFit: 'contain', display: 'inline-block' }} />
       startups
     </span>
   );

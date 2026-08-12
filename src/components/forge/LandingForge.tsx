@@ -71,6 +71,21 @@ function HoverCaps({ text }: { text: string }) {
   );
 }
 
+// "Serving <YC> Startups" hero badge. The asset (/yc-logo.png) is a white square
+// with the Y cut out; we mask an orange layer with it over a white backing so it
+// renders as the official Y Combinator mark (orange square, white Y).
+function YCBadge() {
+  return (
+    <span className="fg-sans" style={{ display: 'inline-flex', alignItems: 'center', gap: 16, fontSize: 'clamp(1.6rem, 2.8vw, 2.3rem)', fontWeight: 600, letterSpacing: '0.01em', color: '#fff' }}>
+      serving
+      <span aria-label="Y Combinator" role="img" style={{ position: 'relative', display: 'inline-block', width: 46, height: 46, background: '#fff', borderRadius: 6 }}>
+        <span aria-hidden="true" style={{ position: 'absolute', inset: 0, background: '#ff6a00', WebkitMaskImage: 'url(/yc-logo.png)', maskImage: 'url(/yc-logo.png)', WebkitMaskSize: '100% 100%', maskSize: '100% 100%', WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat', WebkitMaskPosition: 'center', maskPosition: 'center' }} />
+      </span>
+      startups
+    </span>
+  );
+}
+
 function Hero() {
   return (
     <section id="fg-top" className="fg-hero-pin fg-grain fg-vignette" aria-label="hero">
@@ -84,6 +99,9 @@ function Hero() {
       <div className="fg-drift" style={{ position: 'absolute', bottom: '10%', right: '8%', width: 380, height: 380, borderRadius: '50%', background: 'radial-gradient(circle, rgba(183,68,50,0.12), transparent 70%)', filter: 'blur(30px)', animationDelay: '3s' }} />
 
       <div style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 'clamp(62px, 7vh, 90px)' }}>
+          <YCBadge />
+        </div>
         <div className="fg-wrap" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '0 clamp(1.25rem,5vw,4rem)' }}>
           <h1 className="fg-wordmark" style={{ fontSize: 'clamp(4.5rem, 18vw, 18rem)', marginTop: '-5vh', transform: 'translateY(-3vh)' }}>
             cloutsync<span className="fg-accent">.</span>

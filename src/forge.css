@@ -11,6 +11,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global scale-down: shrinks all rem-based type + spacing a notch (site felt a
+   touch large in production). Tune this single value to scale everything. */
+html { font-size: 90%; }
+
 :root {
   --fg-bg:          #000000;
   --fg-surface:     #0a0a0a;

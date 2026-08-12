@@ -3,7 +3,11 @@ import { useEffect, useRef } from 'react';
 /* Shared Forge chrome + helpers used by every page (home, manifesto, …). */
 
 export const CAL = 'https://calendly.com/agrawalshashwat640/30min';
-export const MAIL = 'mailto:cloutsyncmedia@gmail.com';
+export const MAIL = 'mailto:Admin@cloutsync.in';
+export const EMAIL = 'Admin@cloutsync.in';
+export const TEL = '+917068692189';
+export const PHONE = '7068692189';
+export const LINKEDIN = 'https://www.linkedin.com/company/cloutsync-media/';
 
 // Absolute hrefs so links work from any subpage. Section anchors resolve on the home page.
 export const nav = [
@@ -87,7 +91,9 @@ export function Footer() {
             </div>
             <div>
               <p className="fg-eyebrow" style={{ marginBottom: '1rem' }}>new business</p>
-              <a href={MAIL} className="fg-link fg-sans" style={{ display: 'block', marginBottom: '.6rem', fontSize: '.95rem' }}>cloutsyncmedia@gmail.com</a>
+              <a href={MAIL} className="fg-link fg-sans" style={{ display: 'block', marginBottom: '.6rem', fontSize: '.95rem' }}>{EMAIL}</a>
+              <a href={`tel:${TEL}`} className="fg-link fg-sans" style={{ display: 'block', marginBottom: '.6rem', fontSize: '.95rem' }}>{PHONE}</a>
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" className="fg-link fg-sans" style={{ display: 'block', marginBottom: '.6rem', fontSize: '.95rem' }}>linkedin ↗</a>
               <a href={CAL} target="_blank" rel="noreferrer" className="fg-link fg-accent fg-sans" style={{ fontSize: '.95rem' }}>book a call →</a>
             </div>
           </div>

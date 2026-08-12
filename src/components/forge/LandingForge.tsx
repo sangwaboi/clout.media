@@ -8,13 +8,16 @@ import { CAL, MAIL, useReveal, Arrow, PromoBar, Nav, Footer } from './shared';
    ========================================================================== */
 
 const stats = [
-  { n: '50M+', l: 'in creator revenue' },
-  { n: '250+', l: 'brands transformed' },
-  { n: '15+', l: 'industry awards' },
-  { n: '4×', l: 'average earnings lift' },
+  { n: '5 Cr+', l: 'in creator revenue' },
+  { n: '35+', l: 'brands transformed' },
+  { n: '20M+', l: 'clout under management' },
+  { n: '4×', l: 'avg earning lift of a creator' },
 ];
 
 // Logos in /public/brands/. `invert` darkens a white logo so it reads on the white plaque.
+// BRAND NAMING RULE: partner/brand names are always written with their proper
+// capitalization (first letters capital), e.g. "Physics Wallah", "Newton School
+// of Technology", "Masai School". Never lowercase a partner brand's name.
 const brands = [
   { name: 'Physics Wallah', file: 'physics-wallah.png', invert: false },
   { name: 'Newton School of Technology', file: 'newton-school-of-technology.png', invert: true },
@@ -54,6 +57,20 @@ const steps = [
 /* Official Y Combinator mark: orange square with the white "Y" (exact YC letterform).
    The provided asset is a filled square with the Y as a cut-out; we colour the square
    YC-orange and reveal a white Y from a layer behind the cut-out. */
+
+// Renders text where each letter uppercases on hover (see .fg-hover-caps in forge.css).
+function HoverCaps({ text }: { text: string }) {
+  return (
+    <>
+      {text.split('').map((ch, i) =>
+        ch === ' '
+          ? <span key={i}> </span>
+          : <span key={i} className="fg-hover-caps">{ch}</span>
+      )}
+    </>
+  );
+}
+
 function Hero() {
   return (
     <section id="fg-top" className="fg-hero-pin fg-grain fg-vignette" aria-label="hero">
@@ -71,8 +88,8 @@ function Hero() {
           <h1 className="fg-wordmark" style={{ fontSize: 'clamp(4.5rem, 18vw, 18rem)', marginTop: '-5vh', transform: 'translateY(-3vh)' }}>
             cloutsync<span className="fg-accent">.</span>
           </h1>
-          <p className="fg-serif" style={{ fontSize: 'clamp(1.4rem, 3vw, 2.6rem)', color: 'var(--fg-text)', marginTop: 'clamp(2rem, 5vh, 4rem)', maxWidth: '22ch', lineHeight: 1.02, letterSpacing: '-0.04em' }}>
-            post at sunrise. close by midnight. compound your clout.
+          <p className="fg-serif" style={{ fontSize: 'clamp(2.2rem, 4.6vw, 4rem)', color: 'var(--fg-text)', marginTop: 'clamp(1.25rem, 2.5vh, 2rem)', maxWidth: '22ch', lineHeight: 1.02, letterSpacing: '-0.04em' }}>
+            <HoverCaps text="we turn clout" /><br /><HoverCaps text="into influence." />
           </p>
         </div>
         {/* meta row pinned to hero base */}
@@ -113,12 +130,12 @@ function Stats() {
   const ref = useReveal();
   const img = '/forge-hero.jpg';
   return (
-    <section ref={ref} className="fg-section" style={{ background: 'var(--fg-surface-2)', position: 'relative', zIndex: 3 }}>
+    <section ref={ref} className="fg-section" style={{ background: 'var(--fg-surface-2)', position: 'relative', zIndex: 3, paddingBottom: 'clamp(2rem, 4.5vw, 4.5rem)' }}>
       <div className="fg-wrap">
         <div className="fg-results-top">
           <h2 className="fg-results-head fg-reveal">results so far<span style={{ color: 'rgba(255,255,255,0.25)' }}>.</span></h2>
           <p className="fg-body fg-reveal" data-d="1" style={{ maxWidth: '34ch' }}>
-            creator revenue facilitated, brands transformed, awards won, and the average earnings lift.
+            creator revenue facilitated, brands transformed, clout under management, and the average earnings lift.
           </p>
         </div>
         <div className="fg-stats-grid fg-reveal" data-d="2" style={{ marginTop: 'clamp(2rem, 4vw, 3rem)' }}>
@@ -176,15 +193,15 @@ function Brands() {
       <div className={`fg-brand-logo ${b.file ? 'fg-brand-logo--filled' : 'fg-brand-logo--empty'}`}>
         {b.file && <img src={`/brands/${b.file}`} alt={b.name} className={b.invert ? 'fg-logo-invert' : undefined} loading="lazy" />}
       </div>
-      <span className="fg-brand-name">{b.name.toLowerCase()}</span>
+      <span className="fg-brand-name">{b.name}</span>
     </div>
   ));
 
   if (mode === 'native') {
     return (
-      <section id="fg-brands" className="fg-section" style={{ background: 'var(--fg-bg)', position: 'relative', zIndex: 3, paddingTop: 'clamp(2.5rem,5vw,5rem)', paddingBottom: 'clamp(2.5rem,5vw,5rem)' }}>
-        <div className="fg-wrap" style={{ marginBottom: '1.5rem' }}>
-          <p className="fg-eyebrow">trusted by leading education brands</p>
+      <section id="fg-brands" className="fg-section" style={{ background: 'var(--fg-bg)', position: 'relative', zIndex: 3, paddingTop: 'clamp(1.25rem,2.5vw,2.5rem)', paddingBottom: 'clamp(2.5rem,5vw,5rem)' }}>
+        <div className="fg-wrap" style={{ marginBottom: '2.75rem' }}>
+          <h2 className="fg-brands-head">trusted by leading education Brands<span style={{ color: 'rgba(255,255,255,0.25)' }}>.</span></h2>
         </div>
         <div className="fg-brand-native">{cards}</div>
       </section>
@@ -193,9 +210,9 @@ function Brands() {
 
   return (
     <section id="fg-brands" ref={wrapRef} style={{ position: 'relative', background: 'var(--fg-bg)', zIndex: 3 }}>
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <div className="fg-wrap" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
-          <p className="fg-eyebrow">trusted by leading education brands</p>
+      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '6vh' }}>
+        <div className="fg-wrap" style={{ marginBottom: 'clamp(2.5rem,6vh,5rem)' }}>
+          <h2 className="fg-brands-head">trusted by leading education Brands<span style={{ color: 'rgba(255,255,255,0.25)' }}>.</span></h2>
         </div>
         <div ref={trackRef} className="fg-hbrands-track">{cards}</div>
       </div>
@@ -209,6 +226,13 @@ function Creators() {
   const c = creators[active];
   const igUrl = (h: string) => `https://www.instagram.com/${h.replace('@', '')}`;
   const go = (d: number) => setActive((a) => (a + d + creators.length) % creators.length);
+
+  // Auto-advance to the next creator every 2s. Depending on `active` means any
+  // manual selection (arrows or thumbnails) resets the 2s timer.
+  useEffect(() => {
+    const id = setInterval(() => setActive((a) => (a + 1) % creators.length), 2000);
+    return () => clearInterval(id);
+  }, [active]);
 
   return (
     <section id="fg-creators" ref={ref} className="fg-section fg-iv" style={{ position: 'relative', zIndex: 3 }}>

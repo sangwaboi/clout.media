@@ -13,7 +13,7 @@
 
 /* Global scale-down: shrinks all rem-based type + spacing a notch (site felt a
    touch large in production). Tune this single value to scale everything. */
-html { font-size: 90%; }
+html { font-size: 81%; }
 
 :root {
   --fg-bg:          #000000;
